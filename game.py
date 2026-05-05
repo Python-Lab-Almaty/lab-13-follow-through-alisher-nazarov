@@ -140,7 +140,7 @@ screen.tracer(0)
 # 🟢 ГЕРОЙ
 # ----------------------------
 hero = turtle.Turtle()
-hero.shape("circle")
+hero.shape("triangle")
 hero.color("red")
 hero.penup()
 hero.goto(start)
