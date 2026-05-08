@@ -162,6 +162,7 @@ penalties = 0
 # ----------------------------
 vx = 3
 vy = 3
+boost_active = False 
 
 # ----------------------------
 # 🟢 РЕЖИМ
@@ -306,8 +307,9 @@ def check_collision():
 # 🟢 УПРАВЛЕНИЕ (БЕЗ ЧЕКПОИНТОВ!)
 # ----------------------------
 def up():
-    global steps
-    hero.sety(hero.ycor() + vy)
+    global steps, boost_active
+    speed = vy * 2 if boost_active else vy
+    hero.sety(hero.ycor() + speed)
     steps += 1
     
     log.append({
@@ -319,8 +321,9 @@ def up():
     })
 
 def down():
-    global steps
-    hero.sety(hero.ycor() - vy)
+    global steps,boost_active
+    speed = vy * 2 if boost_active else vy
+    hero.sety(hero.ycor() - speed)
     steps += 1
     
     log.append({
@@ -332,8 +335,9 @@ def down():
     })
 
 def left():
-    global steps
-    hero.setx(hero.xcor() - vx)
+    global steps,boost_active
+    speed = vx * 2 if boost_active else vx
+    hero.setx(hero.xcor() - speed)
     steps += 1
     
     log.append({
@@ -345,8 +349,9 @@ def left():
     })
 
 def right():
-    global steps
-    hero.setx(hero.xcor() + vx)
+    global steps,boost_active
+    speed = vx * 2 if boost_active else vx
+    hero.setx(hero.xcor() + speed)
     steps += 1
     
     log.append({
@@ -371,6 +376,20 @@ screen.onkey(down, "s")
 screen.onkey(left, "a")
 screen.onkey(right, "d")
 screen.onkey(reset_session, "r")
+
+ # Ускорение
+boost_active = False
+
+def enable_boost():
+    global boost_active
+    boost_active = True
+
+def disable_boost():
+    global boost_active
+    boost_active = False
+
+screen.onkey(enable_boost, "Shift_L")
+screen.onkey(disable_boost, "Shift_L")
 
 # ----------------------------
 # 🟢 ОСНОВНОЙ ЦИКЛ
